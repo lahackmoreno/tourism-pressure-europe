@@ -320,29 +320,34 @@ def build_interactive_html(df: pd.DataFrame) -> None:
     initial_country_name = COUNTRY_NAME_MAP.get(initial_country_code, initial_country_code)
 
     fig.update_layout(
-        title=dict(
-            text=(
-                f"Top {TOP_N} NUTS 3 regions by tourism pressure "
-                f"({YEAR}) — {initial_country_name}"
-            )
-        ),
-        xaxis=dict(title=dict(text="Tourist nights per capita")),
-        yaxis=dict(title=dict(text="NUTS 3 region")),
-        updatemenus=[
-            dict(
-                buttons=buttons,
-                direction="down",
-                showactive=True,
-                x=1.02,
-                xanchor="left",
-                y=1,
-                yanchor="top",
-            )
-        ],
-        height=750,
-        width=1200,
-        margin=dict(l=120, r=220, t=100, b=60),
+    title=dict(
+        text=(
+            f"Top {TOP_N} NUTS 3 regions by tourism pressure "
+            f"({YEAR}) — {initial_country_name}"
+        )
+    ),
+    xaxis=dict(title=dict(text="Tourist nights per capita")),
+    yaxis=dict(title=dict(text="NUTS 3 region")),
+    updatemenus=[
+        dict(
+            buttons=buttons,
+            direction="down",
+            showactive=True,
+            x=0,                 # ⬅️ antes 1.02
+            xanchor="left",
+            y=1.05,              # ⬅️ antes 1
+            yanchor="top"
+        )
+    ],
+    height=700,                # un poco más compacto para móvil
+    width=1000,
+    margin=dict(
+        l=80,
+        r=40,                  # menos margen derecho (antes 220)
+        t=140,
+        b=40
     )
+)
 
     fig.write_html(OUTPUT_HTML, include_plotlyjs="cdn")
 
